@@ -1,13 +1,39 @@
-<!DO<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <style>
+        img {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 160px;
+        }
+        div.main {text-align: center;}
+        #search {
+            padding-left: 20px;
+            padding-right: 20px;
+            border-radius: 40px;
+            height: 40px;
+        }
+        div.footer {
+            position: fixed;
+            bottom: 10px;
+        }
+    </style>
 </head>
 <body>
-    <h1>AHHA Simple Search Engine</h1>
-    <p>Daftar dokumen: <button>Upload</button></p>
-    <input type="text" id = "search" placeholder="cari disini">
-    <p id = "datalist"></p>
+    <img src="{{url_for('static', filename='mbah google.png')}}" alt="logo"><br>
+    <div class="main">
+        <form class="input" action="/result">
+            <label>Daftar dokumen:</label>
+            <input type="file" id="files" name="files" multiple><br><br>
+            <input type="text" id="search" size="80" class="round" placeholder="sini biar Mbah cariin">
+        </form>
+    </div>
+    <div class="footer">
+        <a href="perihal">Perihal</a>
+    </div>
 </body>
 <script>
     $(document).ready(function(){
@@ -17,7 +43,4 @@
         });
     });
 </script>
-<footer>
-    <a href="perihal">Perihal</a>
-</footer>
 </html>
