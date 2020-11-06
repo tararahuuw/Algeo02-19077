@@ -1,0 +1,23 @@
+<!DO<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+</head>
+<body>
+    <h1>AHHA Simple Search Engine</h1>
+    <p>Daftar dokumen: <button>Upload</button></p>
+    <input type="text" id = "search" placeholder="cari disini">
+    <p id = "datalist"></p>
+</body>
+<script>
+    $(document).ready(function(){
+        $("#search").on("input",function(e){
+            text = $("#search").val();
+            console.log(text);
+        });
+    });
+</script>
+<footer>
+    <a href="perihal">Perihal</a>
+</footer>
+</html>
