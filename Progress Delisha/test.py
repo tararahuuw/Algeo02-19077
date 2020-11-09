@@ -1,0 +1,128 @@
+import glob
+import math
+import os
+import io
+from Sastrawi.StopWordRemover.StopWordRemoverFactory import StopWordRemoverFactory
+factory = StopWordRemoverFactory()
+stopword = factory.create_stop_word_remover()
+
+from Sastrawi.Stemmer.StemmerFactory import StemmerFactory
+factory = StemmerFactory()
+stemmer = factory.create_stemmer()
+
+import nltk
+from nltk.tokenize import word_tokenize
+
+#Membuat fungsi cosine similarity
+def cosine_sim(vec1, vec2):
+    hasildot = 0
+    for i in range(len(vec1)):
+        hasildot = hasildot + (vec1[i] * vec2[i])
+        
+    sum1 = 0;
+    sum2 = 0
+    for i in range(len(vec1)):
+        sum1 = sum1 + vec1[i] ** 2
+        sum2 = sum2 + vec2[i] ** 2
+  
+    besar1 = math.sqrt(sum1)
+    besar2 = math.sqrt(sum2)
+        
+    return (hasildot / (besar1 * besar2))
+
+#Fungsi untuk membersihkan kalimat
+def clean(doc) :
+    tandabaca = [".",",","-","%", ")", "("]
+    for i in doc:
+        doc = doc.lower()
+        doc = stopword.remove(doc)
+    
+    for td in tandabaca:
+        if (td == '-'):
+            doc=doc.replace(td," ")
+        else:
+            doc=doc.replace(td,"")
+            
+    doc = stemmer.stem(doc)
+    return (doc)
+
+path = r'C:\Git\Algeo02-19077\Progress Alam\Document'
+read_files = glob.glob(path + "/*.txt")
+
+document = []
+query = input("Masukkan query : ")
+document.append(clean(query))
+
+#loopping buat masukkin semua file ke array document
+for doc in read_files:
+    baca = open(doc, "r")
+    bacain = baca.read()
+    
+    document.append(clean(bacain))
+
+dataunion = []
+datasementara = []
+data = []
+for doc in document:
+    datasementara = doc.split()
+    dummy = []
+    for kata in datasementara:
+        if kata not in dataunion:
+            dataunion.append(kata)
+            
+        dummy.append(kata)
+    data.append(dummy)
+
+
+
+dataunion.sort()
+jumlahdata =[]
+for arr in data:
+    dummy = []
+    
+    for kata in dataunion :
+        count = 0
+        for data1 in arr:
+            if kata == data1:
+                count = count + 1
+                
+        dummy.append(count)
+    jumlahdata.append(dummy)
+    
+cosine = []
+for i in range (len(jumlahdata)-1) :
+    cos = cosine_sim(jumlahdata[0], jumlahdata[i+1])
+    cosine.append(cos)
+
+# print nama file tanpa extentionnya
+entries = os.listdir('Document/')
+filename = []
+for entry in entries:
+    file = os.path.splitext(entry)[0]
+    filename.append(file)
+
+dictionary = {filename[i]: cosine[i] for i in range(len(document)-1)}
+
+sort = sorted(dictionary.values() , reverse = True)
+
+print(data)
+print(document)
+print(dataunion)
+print(jumlahdata)
+print(cosine)
+print(filename)
+print(dictionary)
+print(sort)
+
+tuplesort = sorted(dictionary.items(), key = lambda kv:kv[1], reverse = True)
+
+
+for eltuple in tuplesort:
+    doc = eltuple[0]
+    print(doc)
+    f = open('C:/Git/Algeo02-19077/Progress Alam/Document/' + '%s.txt' % doc)
+    article = f.read()
+    print(len(article.split()))
+    print(str("%.2f" % (eltuple[1]*100)) + '%')
+    perkalimat = nltk.tokenize.sent_tokenize(article)
+    print(perkalimat[0])
