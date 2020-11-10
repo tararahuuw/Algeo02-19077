@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
+    <title>{{query}}</title>
     <style>
         div.header {
             position: sticky;
@@ -29,9 +30,8 @@
             border-radius: 40px;
             height: 25px;
         }
-        footer {
-            position: fixed;
-            bottom: 10px;
+        a.perihal {
+            margin-left: 670px;
         }
     </style>
 </head>
@@ -41,52 +41,18 @@
         <map name="mbah">
             <area shape="default" href="..">
         </map>
-        <form class="input" action="/result">
-            <input type="text" id="search" size="80" class="round" placeholder="sini biar Mbah cariin">
+        <form class="input" action="../#" enctype="multipart/form-data">
+            <input type="text" id="search" name="newquery" value="{{query}}" size="80" class="round" placeholder="sini biar Mbah cariin">
+            <a href="perihal" class="perihal">Perihal</a>
         </form>
     </div>
     <div class="result">
-        <a href="..">Dokumen1</a>
-        <p>Jumlah kata: <b>1000</b></p>
-        <p>Tingkat kemiripan: <b>99.9%</b></p>
-        <p style="color: grey;">Ini adalah kalimat pertamanya</p><br>
-        <a href="..">Dokumen2</a>
-        <p>Jumlah kata: <b>900</b></p>
-        <p>Tingkat kemiripan: <b>90%</b></p>
-        <p style="color: grey;">Ini adalah kalimat pertamanya</p><br>
-        <a href="..">Dokumen3</a>
-        <p>Jumlah kata: <b>800</b></p>
-        <p>Tingkat kemiripan: <b>80%</b></p>
-        <p style="color: grey;">Ini adalah kalimat pertamanya</p><br>
-        <a href="..">Dokumen4</a>
-        <p>Jumlah kata: <b>700</b></p>
-        <p>Tingkat kemiripan: <b>70%</b></p>
-        <p style="color: grey;">Ini adalah kalimat pertamanya</p><br>
-        <a href="..">Dokumen5</a>
-        <p>Jumlah kata: <b>600</b></p>
-        <p>Tingkat kemiripan: <b>60%</b></p>
-        <p style="color: grey;">Ini adalah kalimat pertamanya</p><br>
-        <a href="..">Dokumen6</a>
-        <p>Jumlah kata: <b>500</b></p>
-        <p>Tingkat kemiripan: <b>50%</b></p>
-        <p style="color: grey;">Ini adalah kalimat pertamanya</p><br>
-        <a href="..">Dokumen7</a>
-        <p>Jumlah kata: <b>400</b></p>
-        <p>Tingkat kemiripan: <b>40%</b></p>
-        <p style="color: grey;">Ini adalah kalimat pertamanya</p><br>
-        <a href="..">Dokumen8</a>
-        <p>Jumlah kata: <b>300</b></p>
-        <p>Tingkat kemiripan: <b>30%</b></p>
-        <p style="color: grey;">Ini adalah kalimat pertamanya</p><br>
-        <a href="..">Dokumen9</a>
-        <p>Jumlah kata: <b>200</b></p>
-        <p>Tingkat kemiripan: <b>20%</b></p>
-        <p style="color: grey;">Ini adalah kalimat pertamanya</p><br>
-        <a href="..">Dokumen10</a>
-        <p>Jumlah kata: <b>100</b></p>
-        <p>Tingkat kemiripan: <b>10%</b></p>
-        <p style="color: grey;">Ini adalah kalimat pertamanya</p><br>
+        {% for file in hasil %}
+            <a href="../{{ file.doc }}">{{ file.doc }}</a>
+            <p>Jumlah kata: <b>{{ file.jumlah }}</b></p>
+            <p>Tingkat kemiripan: <b>{{ file.persen }}</b></p>
+            <p style="color: grey;">{{ file.awal }}</p><br>
+        {% endfor %}     
     </div>
-    <a href="perihal">Perihal</a>
 </body>
 </html>

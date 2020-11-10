@@ -93,9 +93,9 @@ cosine = []
 for i in range (len(jumlahdata)-1) :
     cos = cosine_sim(jumlahdata[0], jumlahdata[i+1])
     cosine.append(cos)
-
+path='D:/ITB/Semester 3/Algeo/Algeo02-19077/Progress Alam/Document/'
 # print nama file tanpa extentionnya
-entries = os.listdir('Document/')
+entries = os.listdir(path)
 filename = []
 for entry in entries:
     file = os.path.splitext(entry)[0]
@@ -120,7 +120,7 @@ tuplesort = sorted(dictionary.items(), key = lambda kv:kv[1], reverse = True)
 for eltuple in tuplesort:
     doc = eltuple[0]
     print(doc)
-    f = open('C:/Git/Algeo02-19077/Progress Alam/Document/' + '%s.txt' % doc)
+    f = open(path + '%s.txt' % doc)
     article = f.read()
     print(len(article.split()))
     print(str("%.2f" % (eltuple[1]*100)) + '%')

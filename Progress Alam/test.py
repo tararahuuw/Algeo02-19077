@@ -1,5 +1,7 @@
 import glob
 import math
+import os
+import io
 from Sastrawi.StopWordRemover.StopWordRemoverFactory import StopWordRemoverFactory
 factory = StopWordRemoverFactory()
 stopword = factory.create_stop_word_remover()
@@ -7,6 +9,9 @@ stopword = factory.create_stop_word_remover()
 from Sastrawi.Stemmer.StemmerFactory import StemmerFactory
 factory = StemmerFactory()
 stemmer = factory.create_stemmer()
+
+import nltk
+from nltk.tokenize import word_tokenize
 
 #Membuat fungsi cosine similarity
 def cosine_sim(vec1, vec2):
@@ -41,7 +46,7 @@ def clean(doc) :
     doc = stemmer.stem(doc)
     return (doc)
 
-path = r'E:\Tubes ALGEOW anjg\Document'
+path = r'D:\ITB\Semester 3\Algeo\Algeo02-19077\Progress Alam\Document'
 read_files = glob.glob(path + "/*.txt")
 
 document = []
@@ -88,14 +93,36 @@ cosine = []
 for i in range (len(jumlahdata)-1) :
     cos = cosine_sim(jumlahdata[0], jumlahdata[i+1])
     cosine.append(cos)
-    
-dictionary = {document[i+1]: cosine[i] for i in range(len(document)-1)}
+
+# print nama file tanpa extentionnya
+entries = os.listdir('D:/ITB/Semester 3/Algeo/Algeo02-19077/Progress Alam/Document/')
+filename = []
+for entry in entries:
+    file = os.path.splitext(entry)[0]
+    filename.append(file)
+
+dictionary = {filename[i]: cosine[i] for i in range(len(document)-1)}
+
+sort = sorted(dictionary.values() , reverse = True)
 
 print(data)
 print(document)
 print(dataunion)
 print(jumlahdata)
 print(cosine)
+print(filename)
 print(dictionary)
+print(sort)
+
+tuplesort = sorted(dictionary.items(), key = lambda kv:kv[1], reverse = True)
 
 
+for eltuple in tuplesort:
+    doc = eltuple[0]
+    print(doc)
+    f = open('D:/ITB/Semester 3/Algeo/Algeo02-19077/Progress Alam/Document/' + '%s.txt' % doc)
+    article = f.read()
+    print(len(article.split()))
+    print(str("%.2f" % (eltuple[1]*100)) + '%')
+    perkalimat = nltk.tokenize.sent_tokenize(article)
+    print(perkalimat[0])

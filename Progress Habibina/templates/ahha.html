@@ -1,8 +1,12 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <title>Mbah Google</title>
+    <meta charset="utf-8">
     <style>
+        body {
+            background-color: #ffffff;
+        }
         img {
             display: block;
             margin-left: auto;
@@ -16,31 +20,24 @@
             border-radius: 40px;
             height: 40px;
         }
-        div.footer {
+        div.perihal {
             position: fixed;
-            bottom: 10px;
+            top: 10px;
+            right: 30px;
         }
     </style>
 </head>
 <body>
     <img src="{{url_for('static', filename='mbah google.png')}}" alt="logo"><br>
     <div class="main">
-        <form class="input" action="/result">
+        <form class="input" action="#" method="POST" enctype="multipart/form-data">
             <label>Daftar dokumen:</label>
-            <input type="file" id="files" name="files" multiple><br><br>
-            <input type="text" id="search" size="80" class="round" placeholder="sini biar Mbah cariin">
+            <input type="file" id="files" name="dokumen" accept="text/*" multiple="true" required><br><br>
+            <input type="text" id="search" name="query" value="{{query}}" size="80" class="round" placeholder="sini biar Mbah cariin">
         </form>
     </div>
-    <div class="footer">
+    <div class="perihal">
         <a href="perihal">Perihal</a>
     </div>
 </body>
-<script>
-    $(document).ready(function(){
-        $("#search").on("input",function(e){
-            text = $("#search").val();
-            console.log(text);
-        });
-    });
-</script>
 </html>
