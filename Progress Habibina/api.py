@@ -1,7 +1,10 @@
+import backend
 import os
+import glob
+
 from flask import Flask,redirect,render_template,request,url_for
 from werkzeug.utils import secure_filename
-import backend
+
 import nltk
 from nltk.tokenize import word_tokenize
 
@@ -18,7 +21,6 @@ def ahha():
         for file in f:
             filename = secure_filename(file.filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-            print(filename)
 
         string = request.form["query"]
 
@@ -34,7 +36,8 @@ def result(query):
         return redirect(url_for("result",query=string))
 
     else:
-        hasil = backend.back(query)
+        tuplesort = backend.vektorisasi(query)
+
         curdir=os.path.dirname(os.path.realpath(__file__))
         docpath=curdir+'/templates/dokumen/'
 
@@ -42,8 +45,7 @@ def result(query):
         ljumlah=[]
         lpersen=[]
         lawal=[]
-        print(hasil)
-        for eltuple in hasil:
+        for eltuple in tuplesort:
             doc = eltuple[0]
             ldoc.append(doc)
             f = open(docpath + "%s.txt" %doc, errors="ignore")
@@ -55,15 +57,36 @@ def result(query):
             perkalimat = nltk.tokenize.sent_tokenize(article)
             awal = perkalimat[0]
             lawal.append(awal)
-        print(ldoc)
-        print(ljumlah)
-        print(lpersen)
-        print(lawal)
+
         hasil=[0 for i in range(len(ldoc))]
         for i in range(len(hasil)):
-            hasil[i] = {"doc":ldoc[i]+".txt","jumlah":ljumlah[i],"persen":lpersen[i],"awal":lawal[i]} 
-        print(type(hasil))
-        return render_template("result.html",query=query,hasil=hasil)
+            hasil[i] = {"doc":ldoc[i]+".txt","jumlah":ljumlah[i],"persen":lpersen[i],"awal":lawal[i]}
+        
+        dokumen=[]
+        dokumen.append(backend.clean(query))
+        for doc in ldoc:
+            dok = docpath+doc+".txt"
+            baca = open(dok, "r",errors="ignore")
+            bacain = baca.read()
+
+            dokumen.append(backend.clean(bacain))
+
+        listkata2 = backend.gabung(dokumen)
+        [dataunion,datasort] = listkata2  
+        dataquery = datasort[0]
+        
+        kemunculan = []
+        for kata in dataquery:
+            dummy = [kata]
+            for word in datasort:
+                count = 0
+                for i in word:
+                    if kata == i:
+                        count += 1
+                dummy.append(count)
+            kemunculan.append(dummy)
+
+        return render_template("result.html",query=query,hasil=hasil,kemunculan=kemunculan)
 
 @app.route('/<namafile>')
 def buka(namafile):

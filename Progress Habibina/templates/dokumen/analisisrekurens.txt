@@ -1,0 +1,31 @@
+function Max (T: TabInt, IAwal: integer) → integer
+	if (IAwal > T.Neff) then
+		{ do nothing }
+	else if (IAwal = T.Neff) then
+		→ T.TI[IAwal]
+	else
+		→ max2(T.TI[IAwal],Max(T,IAwal+1))
+
+procedure Search (input X: integer, input T: TabInt, input IAwal: integer,
+output Idx: integer, output found: boolean)
+	if (IAwal > T.Neff) then
+		Idx ← IdxUndef
+		found ← False
+	else if (T.TI[IAwal] = X) then
+		Idx ← IAwal
+		found ← True
+	else
+		Search(X,T,IAwal+1,Idx,found)
+
+
+procedure AddX (input/output T: TabInt, input X: integer)
+	if (T.Neff = IdxMax) then
+		{ do nothing }
+	else if (T.Neff < IdxMax) then
+		temp: integer
+		temp ← T.TI[i]
+		T.TI[i] = X
+		i ← i+1
+		AddX (T,temp)
+
+

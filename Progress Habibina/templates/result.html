@@ -1,16 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>{{query}}</title>
     <style>
-        div.header {
+        .header {
             position: sticky;
             top: 0px;
             left: -10px;
             padding: 5px;
             background-color: white;
         }
+        
+        th,
+        td {
+            padding: 5px 10px
+        }
+        
+        tr:nth-child(odd) {
+            border-bottom: 2px #f0f0f0 solid;
+        }
+        
         img {
             display: block;
             margin-left: 5px;
@@ -19,9 +30,21 @@
             width: 10%;
             float: left;
         }
-        div.result {
+        
+        .result {
             margin-left: 190px;
+            float: left;
+            width: calc(50% - 190px);
+            padding: 0;
         }
+        
+        .tabel {
+            text-align: center;
+            width: 45%;
+            padding: 0;
+            overflow: auto;
+        }
+        
         #search {
             margin-left: 10px;
             margin-top: 5px;
@@ -30,11 +53,21 @@
             border-radius: 40px;
             height: 25px;
         }
-        a.perihal {
+        
+        .perihal {
             margin-left: 670px;
+        }
+        th {
+            background-color: rgb(194, 255, 179);
+        }
+        .sticky-col {
+            position: -webkit-sticky;
+            position: sticky;
+            background-color: rgb(194, 255, 179);
         }
     </style>
 </head>
+
 <body>
     <div class="header">
         <img src="{{url_for('static', filename='mbah google.png')}}" alt="logo" usemap="#mbah">
@@ -46,13 +79,33 @@
             <a href="perihal" class="perihal">Perihal</a>
         </form>
     </div>
-    <div class="result">
-        {% for file in hasil %}
+    <div class="main">
+        <div class="result">
+            {% for file in hasil %}
             <a href="../{{ file.doc }}">{{ file.doc }}</a>
             <p>Jumlah kata: <b>{{ file.jumlah }}</b></p>
             <p>Tingkat kemiripan: <b>{{ file.persen }}</b></p>
-            <p style="color: grey;">{{ file.awal }}</p><br>
-        {% endfor %}     
+            <p style="color: grey;">{{ file.awal }}</p><br> {% endfor %}
+        </div>
+        <div class="tabel">
+            <table style="width:100%">
+                <tr>
+                    <th class="sticky-col">Term</th>
+                    <th>Query</th>
+                    {% for file in hasil %}
+                    <th>{{ file.doc }}</th>
+                    {% endfor %}
+                </tr>
+                {% for data in kemunculan %}
+                <tr>
+                    {% for nilai in data %}
+                    <td>{{ nilai }}</td>
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
     </div>
 </body>
+
 </html>

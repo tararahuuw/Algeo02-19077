@@ -46,7 +46,7 @@ def clean(doc) :
     doc = stemmer.stem(doc)
     return (doc)
 
-def back(query):
+def docinput(query):
 
     curdir=os.path.dirname(os.path.realpath(__file__))
     path = curdir+'/templates/dokumen'
@@ -62,6 +62,9 @@ def back(query):
 
         document.append(clean(bacain))
 
+    return (document)
+
+def gabung(document):
     dataunion = []
     datasementara = []
     data = []
@@ -74,8 +77,12 @@ def back(query):
 
             dummy.append(kata)
         data.append(dummy)
+    listdata = [dataunion,data]
+    return(listdata)
 
-
+def hitung(listdata):
+    dataunion = listdata[0]
+    data = listdata[1]
 
     dataunion.sort()
     jumlahdata =[]
@@ -91,11 +98,15 @@ def back(query):
             dummy.append(count)
         jumlahdata.append(dummy)
 
+    return (jumlahdata)
+
+def urut(jumlahdata,document):
     cosine = []
     for i in range (len(jumlahdata)-1) :
         cos = cosine_sim(jumlahdata[0], jumlahdata[i+1])
         cosine.append(cos)
 
+    curdir=os.path.dirname(os.path.realpath(__file__))
     path=curdir+'/templates/dokumen/'
     # print nama file tanpa extentionnya
     entries = os.listdir(path)
@@ -132,3 +143,10 @@ def back(query):
     #    perkalimat = nltk.tokenize.sent_tokenize(article)
     #    awal = perkalimat[0]
         #print(awal)
+
+def vektorisasi(query):
+    document = docinput(query)
+    listdata = gabung(document)        
+    jumlahdata = hitung(listdata)
+    tuplesort = urut(jumlahdata,document)
+    return (tuplesort)
