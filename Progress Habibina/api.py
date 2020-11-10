@@ -21,8 +21,20 @@ def ahha():
             print(filename)
 
         string = request.form["query"]
-        tuplesort = backend.back(string)
 
+        return redirect(url_for("result",query=string))
+
+    else:
+        return render_template("ahha.html")
+
+@app.route('/result<query>', methods=["POST","GET"])
+def result(query):
+    if request.method == "POST":
+        string = request.form["newquery"]
+        return redirect(url_for("result",query=string))
+
+    else:
+        hasil = backend.back(query)
         curdir=os.path.dirname(os.path.realpath(__file__))
         docpath=curdir+'/templates/dokumen/'
 
@@ -30,8 +42,8 @@ def ahha():
         ljumlah=[]
         lpersen=[]
         lawal=[]
-        print(tuplesort)
-        for eltuple in tuplesort:
+        print(hasil)
+        for eltuple in hasil:
             doc = eltuple[0]
             ldoc.append(doc)
             f = open(docpath + "%s.txt" %doc, errors="ignore")
@@ -50,19 +62,7 @@ def ahha():
         hasil=[0 for i in range(len(ldoc))]
         for i in range(len(hasil)):
             hasil[i] = {"doc":ldoc[i]+".txt","jumlah":ljumlah[i],"persen":lpersen[i],"awal":lawal[i]} 
-        print(hasil)
-        return redirect(url_for("result",query=string,hasil=hasil))
-
-    else:
-        return render_template("ahha.html")
-
-@app.route('/result<query>/<hasil>', methods=["POST","GET"])
-def result(query,hasil):
-    if request.method == "POST":
-        string = request.form["newquery"]
-        return redirect(url_for("result",query=string,hasil=hasil))
-
-    else:
+        print(type(hasil))
         return render_template("result.html",query=query,hasil=hasil)
 
 @app.route('/<namafile>')
