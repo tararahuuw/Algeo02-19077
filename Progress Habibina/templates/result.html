@@ -48,7 +48,7 @@
     </div>
     <div class="result">
         {% for file in hasil %}
-            <a href="../{{ file.doc }}">{{ file.doc }}</a>
+            <a href="../{{ file.doc }}">{{ file }}</a>
             <p>Jumlah kata: <b>{{ file.jumlah }}</b></p>
             <p>Tingkat kemiripan: <b>{{ file.persen }}</b></p>
             <p style="color: grey;">{{ file.awal }}</p><br>

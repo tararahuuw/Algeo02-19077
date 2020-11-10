@@ -5,7 +5,8 @@ import backend
 import nltk
 from nltk.tokenize import word_tokenize
 
-UPLOAD_FOLDER = 'D:\ITB\Semester 3\Algeo\Algeo02-19077\Progress Habibina\Templates\dokumen'
+curdir=os.path.dirname(os.path.realpath(__file__))
+UPLOAD_FOLDER=curdir+'/templates/dokumen/'
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
