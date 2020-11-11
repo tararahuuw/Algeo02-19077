@@ -39,10 +39,12 @@
         }
         
         .tabel {
+            position: relative;
             text-align: center;
             width: 45%;
             padding: 0;
             overflow: auto;
+            border: 2px solid rgb(194, 255, 179);
         }
         
         #search {
@@ -57,12 +59,25 @@
         .perihal {
             margin-left: 670px;
         }
-        th {
-            background-color: rgb(194, 255, 179);
-        }
-        .sticky-col {
+        .nilaiterm {
             position: -webkit-sticky;
             position: sticky;
+            background-color: rgb(194, 255, 179);
+            width: 100px;
+            min-width: 100px;
+            max-width: 100px;
+            left: 0px;
+        }
+        .nilaiquery {
+            position: -webkit-sticky;
+            position: sticky;
+            background-color: #ffffff;
+            width: 50px;
+            min-width: 50px;
+            max-width: 50px;
+            left: 120px;
+        }
+        th {
             background-color: rgb(194, 255, 179);
         }
     </style>
@@ -82,7 +97,7 @@
     <div class="main">
         <div class="result">
             {% for file in hasil %}
-            <a href="../{{ file.doc }}">{{ file.doc }}</a>
+            <a href="../dokumen/{{ file.doc }}">{{ file.doc }}</a>
             <p>Jumlah kata: <b>{{ file.jumlah }}</b></p>
             <p>Tingkat kemiripan: <b>{{ file.persen }}</b></p>
             <p style="color: grey;">{{ file.awal }}</p><br> {% endfor %}
@@ -90,15 +105,17 @@
         <div class="tabel">
             <table style="width:100%">
                 <tr>
-                    <th class="sticky-col">Term</th>
-                    <th>Query</th>
+                    <th class="nilaiterm">Term</th>
+                    <th class="nilaiquery" style="background-color: rgb(194, 255, 179);">Query</th>
                     {% for file in hasil %}
                     <th>{{ file.doc }}</th>
                     {% endfor %}
                 </tr>
                 {% for data in kemunculan %}
                 <tr>
-                    {% for nilai in data %}
+                    <td class="nilaiterm">{{ data[0] }}</td>
+                    <td class="nilaiquery">{{ data[1] }}</td>
+                    {% for nilai in data[2:] %}
                     <td>{{ nilai }}</td>
                     {% endfor %}
                 </tr>

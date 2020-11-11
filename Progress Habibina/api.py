@@ -88,9 +88,15 @@ def result(query):
 
         return render_template("result.html",query=query,hasil=hasil,kemunculan=kemunculan)
 
-@app.route('/<namafile>')
+@app.route('/dokumen/<namafile>')
 def buka(namafile):
-    return render_template("/dokumen/"+namafile)
+    with open(UPLOAD_FOLDER+namafile, "r") as f:
+        paragraph = f.read().split("\n\n")
+        content=[]
+        for line in paragraph:
+            lines = line.split("\n")
+            content.append(lines)
+    return render_template("dokumen.html",content=content,judul=namafile)
 
 @app.route('/perihal')
 def perihal():

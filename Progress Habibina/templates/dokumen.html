@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ judul }}</title>
+    <style>
+        p {
+            margin: 10px 50px 10px 50px;
+            font: arial;
+            font-size: 20px;
+            text-align: justify;
+        }
+    </style>
+</head>
+<body>
+    {% for paragraph in content %}
+    {% for line in paragraph %}
+        <p>
+        {{ line }}
+        </p>
+    {% endfor %}
+    <br>
+    {% endfor %}
+</body>
+</html>
