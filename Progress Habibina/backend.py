@@ -57,7 +57,7 @@ def docinput(query):
 
     #loopping buat masukkin semua file ke array document
     for doc in dokumen:
-        baca = open(doc, "r",errors="ignore")
+        baca = open(doc, "r",encoding="utf8")
         bacain = baca.read()
 
         document.append(clean(bacain))
@@ -134,7 +134,7 @@ def urut(jumlahdata,document):
     #for eltuple in tuplesort:
     #    doc = eltuple[0]
         #print(doc)
-    #    f = open(path + "%s.txt" %doc, errors="ignore")
+    #    f = open(path + "%s.txt" %doc,encoding="utf8")
     #    article = f.read()
     #    jumlah = len(article.split())
         #print(jumlah)

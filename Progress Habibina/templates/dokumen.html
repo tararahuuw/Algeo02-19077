@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>{{ judul }}</title>
     <style>
-        p {
+        pre {
             margin: 10px 50px 10px 50px;
             font: arial;
             font-size: 20px;
@@ -13,13 +13,6 @@
     </style>
 </head>
 <body>
-    {% for paragraph in content %}
-    {% for line in paragraph %}
-        <p>
-        {{ line }}
-        </p>
-    {% endfor %}
-    <br>
-    {% endfor %}
+    <pre>{{ content }}</pre>
 </body>
 </html>

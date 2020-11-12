@@ -29,10 +29,10 @@ def ahha():
     else:
         return render_template("ahha.html")
 
-@app.route('/result<query>', methods=["POST","GET"])
+@app.route('/result/<query>', methods=["POST","GET"])
 def result(query):
     if request.method == "POST":
-        string = request.form["newquery"]
+        string = request.form["query"]
         return redirect(url_for("result",query=string))
 
     else:
@@ -48,7 +48,7 @@ def result(query):
         for eltuple in tuplesort:
             doc = eltuple[0]
             ldoc.append(doc)
-            f = open(docpath + "%s.txt" %doc, errors="ignore")
+            f = open(docpath + "%s.txt" %doc, encoding="utf8")
             article = f.read()
             jumlah = len(article.split())
             ljumlah.append(jumlah)
@@ -66,7 +66,7 @@ def result(query):
         dokumen.append(backend.clean(query))
         for doc in ldoc:
             dok = docpath+doc+".txt"
-            baca = open(dok, "r",errors="ignore")
+            baca = open(dok, "r",encoding="utf8")
             bacain = baca.read()
 
             dokumen.append(backend.clean(bacain))
@@ -90,12 +90,8 @@ def result(query):
 
 @app.route('/dokumen/<namafile>')
 def buka(namafile):
-    with open(UPLOAD_FOLDER+namafile, "r") as f:
-        paragraph = f.read().split("\n\n")
-        content=[]
-        for line in paragraph:
-            lines = line.split("\n")
-            content.append(lines)
+    with open(UPLOAD_FOLDER+namafile, "r", encoding="utf8") as f:
+        content = f.read()
     return render_template("dokumen.html",content=content,judul=namafile)
 
 @app.route('/perihal')
