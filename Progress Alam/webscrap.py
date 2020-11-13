@@ -57,6 +57,7 @@ for i in range(1,2):
 print(tautan) 
 
 Document = []
+titles = []
 
 query = input("Masukkan query : ")
 #cari link
@@ -67,8 +68,11 @@ for link in tautan :
 
     for i in soup.find('div',{'class':'detail__body-text itp_bodycontent'}).find_all('p'):
         data.append(i.text)
+    for i in soup.find('div',{'class':'detail__header'}).find_all('h1'):
+        judul = i.text.strip()
         
     Document.append(data)
+    titles.append(judul)
 
 print("Ini DOCUMENT")
 print(Document)   
