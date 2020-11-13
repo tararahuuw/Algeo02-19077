@@ -13,6 +13,9 @@ stemmer = factory.create_stemmer()
 import nltk
 from nltk.tokenize import word_tokenize
 
+curdir=os.path.dirname(os.path.realpath(__file__))
+docpath=curdir+'/dokumen/'
+
 #Membuat fungsi cosine similarity
 def cosine_sim(vec1, vec2):
     hasildot = 0
@@ -46,11 +49,10 @@ def clean(doc) :
     doc = stemmer.stem(doc)
     return (doc)
 
+# membaca query dan dokumen
 def docinput(query):
 
-    curdir=os.path.dirname(os.path.realpath(__file__))
-    path = curdir+'/templates/dokumen'
-    dokumen = glob.glob(path + "/*.txt")
+    dokumen = glob.glob(docpath + "/*.txt")
 
     document = []
     document.append(clean(query))
@@ -64,6 +66,7 @@ def docinput(query):
 
     return (document)
 
+# menggabungkan kata-kata query dan dokumen
 def gabung(document):
     dataunion = []
     datasementara = []
@@ -80,6 +83,7 @@ def gabung(document):
     listdata = [dataunion,data]
     return(listdata)
 
+# menghitung kemunculan kata di dokumen dengan gabungan
 def hitung(listdata):
     dataunion = listdata[0]
     data = listdata[1]
@@ -100,16 +104,15 @@ def hitung(listdata):
 
     return (jumlahdata)
 
+# mengurutkan kemunculannya
 def urut(jumlahdata,document):
     cosine = []
     for i in range (len(jumlahdata)-1) :
         cos = cosine_sim(jumlahdata[0], jumlahdata[i+1])
         cosine.append(cos)
 
-    curdir=os.path.dirname(os.path.realpath(__file__))
-    path=curdir+'/templates/dokumen/'
     # print nama file tanpa extentionnya
-    entries = os.listdir(path)
+    entries = os.listdir(docpath)
     filename = []
     for entry in entries:
         file = os.path.splitext(entry)[0]
@@ -119,31 +122,11 @@ def urut(jumlahdata,document):
 
     sort = sorted(dictionary.values() , reverse = True)
 
-    #print(data)
-    #print(document)
-    #print(dataunion)
-    #print(jumlahdata)
-    #print(cosine)
-    #print(filename)
-    #print(dictionary)
-    #print(sort)
-
     tuplesort = sorted(dictionary.items(), key = lambda kv:kv[1], reverse = True)
 
     return tuplesort
-    #for eltuple in tuplesort:
-    #    doc = eltuple[0]
-        #print(doc)
-    #    f = open(path + "%s.txt" %doc,encoding="utf8")
-    #    article = f.read()
-    #    jumlah = len(article.split())
-        #print(jumlah)
-    #    persen = str("%.2f" % (eltuple[1]*100)) + '%'
-        #print(persen)
-    #    perkalimat = nltk.tokenize.sent_tokenize(article)
-    #    awal = perkalimat[0]
-        #print(awal)
 
+# memanggil semua fungsi buat vektorisasi
 def vektorisasi(query):
     document = docinput(query)
     listdata = gabung(document)        

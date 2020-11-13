@@ -8,39 +8,48 @@ from werkzeug.utils import secure_filename
 import nltk
 from nltk.tokenize import word_tokenize
 
+# tempat menyimpan dokumen
 curdir=os.path.dirname(os.path.realpath(__file__))
-UPLOAD_FOLDER=curdir+'/templates/dokumen/'
+docpath=curdir+'/dokumen/'
 
 app = Flask(__name__)
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+app.config['UPLOAD_FOLDER'] = docpath
 
+# halaman utama
 @app.route('/', methods=["POST","GET"])
 def ahha():
+    # jika menerima input
     if request.method == "POST":
+
+        # simpan dokumen ke folder
         f = request.files.getlist('dokumen')
         for file in f:
             filename = secure_filename(file.filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
 
+        # mengambil input query
         string = request.form["query"]
 
+        # pindah ke result
         return redirect(url_for("result",query=string))
 
+    # jika tidak menerima input
     else:
+        # render ahha.html
         return render_template("ahha.html")
 
+# halaman result
 @app.route('/result/<query>', methods=["POST","GET"])
 def result(query):
+    # jika menerima input baru, mengubah nilai query
     if request.method == "POST":
         string = request.form["query"]
         return redirect(url_for("result",query=string))
 
     else:
-        tuplesort = backend.vektorisasi(query)
+        tuplesort = backend.vektorisasi(query) # vektorisasi
 
-        curdir=os.path.dirname(os.path.realpath(__file__))
-        docpath=curdir+'/templates/dokumen/'
-
+        # menghitung hasil
         ldoc=[]
         ljumlah=[]
         lpersen=[]
@@ -58,10 +67,12 @@ def result(query):
             awal = perkalimat[0]
             lawal.append(awal)
 
+        # membuat dictionary hasil
         hasil=[0 for i in range(len(ldoc))]
         for i in range(len(hasil)):
             hasil[i] = {"doc":ldoc[i]+".txt","jumlah":ljumlah[i],"persen":lpersen[i],"awal":lawal[i]}
         
+        # menngurutkan dokumen berdasarkan hasil
         dokumen=[]
         dokumen.append(backend.clean(query))
         for doc in ldoc:
@@ -75,6 +86,7 @@ def result(query):
         [dataunion,datasort] = listkata2  
         dataquery = datasort[0]
         
+        # menghitung kemunculan kata tiap dokumen
         kemunculan = []
         for kata in dataquery:
             dummy = [kata]
@@ -88,15 +100,18 @@ def result(query):
 
         return render_template("result.html",query=query,hasil=hasil,kemunculan=kemunculan)
 
+# halaman dokumen
 @app.route('/dokumen/<namafile>')
 def buka(namafile):
-    with open(UPLOAD_FOLDER+namafile, "r", encoding="utf8") as f:
+    with open(docpath+namafile, "r", encoding="utf8") as f:
         content = f.read()
     return render_template("dokumen.html",content=content,judul=namafile)
 
+# halaman perihal
 @app.route('/perihal')
 def perihal():
     return render_template("perihal.html")
 
+# jalanin program
 if __name__ == "__main__":
     app.run(debug=True)
