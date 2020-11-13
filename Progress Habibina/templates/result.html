@@ -5,29 +5,63 @@
     <meta charset="UTF-8">
     <title>{{query}}</title>
     <style>
-
+        *{
+			margin: 0px;
+			padding: 0px;
+			font-family: century gothic;
+        }
+        
+        ul {
+            
+            list-style-type: none;
+            float: right;
+            margin-top: 15px;
+            
+        }
+        
+        ul li {
+            display: inline-block;
+        }
+        
+        ul li a{
+            text-decoration: none;
+            color: white;
+            padding: 5px 20px;
+            border: 1px solid transparent;
+            
+        }
+        
+        ul li a:hover{
+            background-color: white;
+            color: black;
+        }
+        
+        ul li.active a{
+            background-color: white;
+            color: black;
+        }
         .header {
             position: fixed;
             top: 0px;
             left: 0px;
-            background-color: rgb(255, 255, 255);
+            background-color:rgba(0,0,0,0.5);
             height: 50px;
             width: 100%;
         }
 
         .mbah {
             display: block;
-            margin-left: 12px;
+            margin-left: 15px;
             margin-top: 12px;
             height: 25px;
-            width: 140px;
+            width: 120px;
             float: left;
         }
 
         .search {
             position: fixed;
             top: 5px;
-            left: 150px;
+            left: 140px;
         }
         
         #search {
@@ -38,32 +72,31 @@
             border-radius: 40px;
             height: 25px;
         }
-        
-        .perihal {
-            position: fixed;
-            top: 15px;
-            right: 20px;
+        body {
+            background-image: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)), url("/static/sawah.jpg");
+			height: 100vh;
+			background-size: cover;
+			background-position: center;
         }
-
         .result {
             margin-top: 50px;
             margin-left: 180px;
             float: left;
             width: calc(50% - 190px);
             padding: 0;
+            color: rgba(194, 255, 179);
         }
-        
 
         .dokumen {
             font-size: large;
         }
         .dokumen:link {
             text-decoration: none;
-            color:blue;
+            color:aliceblue;
         }
         .dokumen:visited {
             text-decoration: none;
-            color:purple;
+            color:rgb(192, 192, 192);
         }
         .dokumen:hover {
             text-decoration: underline;
@@ -75,14 +108,14 @@
         .tabel {
             position: fixed;
             right: 50px;
-            top: 50px;
-            background-color: white;
+            top: 100px;
+            background-color:rgba(255,255,255,0.5);
             text-align: center;
             max-width: 45%;
             max-height: 80%;
             padding: 0;
             overflow: auto;
-            border: 2px solid rgb(194, 255, 179);
+            border: 2px solid rgba(194, 255, 179,0.5);
         }
         
         table {
@@ -99,18 +132,18 @@
         th {
             position: -webkit-sticky;
             position: sticky;
-            background-color: rgb(194, 255, 179);
+            background-color: rgba(194, 255, 179);
             top: 0px;
         }
 
         tr:nth-child(odd) {
-            background-color: #dbf5d4;
+            background-color: rgba(198, 255, 184, 0.5);
         }
 
         .sticky-cell {
             position: -webkit-sticky;
             position: sticky;
-            background-color: rgb(194, 255, 179);
+            background-color: rgba(194, 255, 179);
             top: 0px;
             z-index: 100;
         }
@@ -143,14 +176,19 @@
 <body>
     <header>
     <div class="header">
-        <img class="mbah" src="{{url_for('static', filename='mbah google.png')}}" alt="logo" usemap="#mbah">
+        <img class="mbah" src="{{url_for('static', filename='mbah google putih.png')}}" alt="logo" usemap="#mbah">
         <map name="mbah">
             <area shape="default" href="..">
         </map>
         <form class="search" action="../result/{{query}}#" method="POST" enctype="multipart/form-data">
             <input type="text" id="search" name="query" value="{{query}}" size="80" class="round" placeholder="sini biar Mbah cariin">
         </form>
-        <a href="perihal" class="perihal">Perihal</a>
+        <div class="navbar">
+            <ul>
+                <li><a href="../perihal">Perihal</a></li>
+                <li><a href="../perihal">Web Srapping</a></li>
+            </ul>
+        </div>
     </div>
     </header>
     <div class="main">
@@ -159,7 +197,7 @@
             <a class="dokumen" href="../dokumen/{{ file.doc }}">{{ file.doc }}</a>
             <p>Jumlah kata: <b>{{ file.jumlah }}</b></p>
             <p>Tingkat kemiripan: <b>{{ file.persen }}</b></p>
-            <p style="color: grey;">{{ file.awal }}</p><br><br>
+            <p style="color:rgba(194, 255, 179, 0.5);">{{ file.awal }}</p><br><br>
             {% endfor %}
         </div>
         <div class="tabel">
