@@ -15,16 +15,13 @@ stemmer = factory.create_stemmer()
 import nltk
 from nltk.tokenize import word_tokenize
 
-curdir=os.path.dirname(os.path.realpath(__file__))
-docpath=curdir+'/dokumen/'
-
 #Membuat fungsi cosine similarity
 def cosine_sim(vec1, vec2):
     hasildot = 0
     for i in range(len(vec1)):
         hasildot = hasildot + (vec1[i] * vec2[i])
         
-    sum1 = 0
+    sum1 = 0;
     sum2 = 0
     for i in range(len(vec1)):
         sum1 = sum1 + vec1[i] ** 2
@@ -51,93 +48,7 @@ def clean(doc) :
     doc = stemmer.stem(doc)
     return (doc)
 
-# membaca query dan dokumen
-def docinput(query):
-
-    dokumen = glob.glob(docpath + "/*.txt")
-
-    document = []
-    document.append(clean(query))
-
-    #loopping buat masukkin semua file ke array document
-    for doc in dokumen:
-        baca = open(doc, "r",encoding="utf8")
-        bacain = baca.read()
-
-        document.append(clean(bacain))
-
-    return (document)
-
-# menggabungkan kata-kata query dan dokumen
-def gabung(document):
-    dataunion = []
-    datasementara = []
-    data = []
-    for doc in document:
-        datasementara = doc.split()
-        dummy = []
-        for kata in datasementara:
-            if kata not in dataunion:
-                dataunion.append(kata)
-
-            dummy.append(kata)
-        data.append(dummy)
-    listdata = [dataunion,data]
-    return(listdata)
-
-# menghitung kemunculan kata di dokumen dengan gabungan
-def hitung(listdata):
-    dataunion = listdata[0]
-    data = listdata[1]
-
-    dataunion.sort()
-    jumlahdata = []
-    for arr in data:
-        dummy = []
-
-        for kata in dataunion :
-            count = 0
-            for data1 in arr:
-                if kata == data1:
-                    count = count + 1
-
-            dummy.append(count)
-        jumlahdata.append(dummy)
-
-    return (jumlahdata)
-
-# mengurutkan kemunculannya
-def urut(jumlahdata,document):
-    cosine = []
-    for i in range (len(jumlahdata)-1) :
-        cos = cosine_sim(jumlahdata[0], jumlahdata[i+1])
-        cosine.append(cos)
-
-    # print nama file tanpa extentionnya
-    entries = os.listdir(docpath)
-    filename = []
-    for entry in entries:
-        file = os.path.splitext(entry)[0]
-        filename.append(file)
-
-    dictionary = {filename[i]: cosine[i] for i in range(len(document)-1)}
-
-    sort = sorted(dictionary.values() , reverse = True)
-
-    tuplesort = sorted(dictionary.items(), key = lambda kv:kv[1], reverse = True)
-
-    return tuplesort
-
-# memanggil semua fungsi buat vektorisasi
-def vektorisasi(query):
-    document = docinput(query)
-    listdata = gabung(document)        
-    jumlahdata = hitung(listdata)
-    tuplesort = urut(jumlahdata,document)
-    return (tuplesort)
-
-# webscrapping
-def webscrapping(query):
+def hitung(query):
     from bs4 import BeautifulSoup
     tautan = []
     for i in range(1,2):
@@ -150,6 +61,7 @@ def webscrapping(query):
 
     Document = []
     titles = []
+
     #cari link
     for link in tautan :
         r = requests.get(link)
@@ -166,6 +78,8 @@ def webscrapping(query):
 
     #buka semua link
     dataunion = []
+    #masukkin query di dataunion  
+    dataunion.append(clean(query))
     datasementara = []
     data = []
     dataall = []
@@ -190,9 +104,6 @@ def webscrapping(query):
         dataall.append(bacain2)
         length.append(len(bacain2))
 
-    #masukkin query di dataunion  
-    dataunion.append(clean(query))
-
     #Split
     datagabung = []
     datasementara = []
@@ -210,6 +121,7 @@ def webscrapping(query):
     #data gabung itu semua kata yang muncul di seluruh dokumen
     #data itu semua kata yang muncul permasing2 dokumen
 
+    datagabung.sort()
     jumlahdata =[]
     for arr in data:
         dummy = []
@@ -230,7 +142,7 @@ def webscrapping(query):
 
     lis = []
     for i in range(len(Document)):
-        dictionary = {'link':tautan[i],'doc':titles[i],'jumlah':length[i],'cosine':cosine[i],'persen':"%.2f" %(100*cosine[i])+"%", 'awal':nltk.tokenize.sent_tokenize(Document[i][0])[0]}
+        dictionary = {'link':tautan[i],'doc':titles[i],'jumlah':length[i],'cosine':cosine[i],'persen':"%.2f" %(100*cosine[i])+"%",'awal':nltk.tokenize.sent_tokenize(Document[i][0])[0]}
         lis.append(dictionary)
 
     sort = sorted(lis, key=itemgetter('cosine'),reverse=True)
@@ -248,13 +160,15 @@ def webscrapping(query):
                     count += 1
             dummy.append(count)
         kemunculan.append(dummy)
-    
-    for angka in kemunculan:
-        n = len(angka)
-        temp = angka[n-1]
-        for i in range(n-2,0,-1):
-            angka[i+1] = angka[i]
-        angka[1] = temp
+
+    for i in sort:
+        print(i['doc'])
+        print(i['jumlah'])
+        print(i['persen'])
+        print(i['awal'])
 
     retval=[titles,kemunculan,sort]
     return(retval)
+
+query = "irigasi jebol"
+print(hitung(query))

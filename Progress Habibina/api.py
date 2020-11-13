@@ -100,6 +100,35 @@ def result(query):
 
         return render_template("result.html",query=query,hasil=hasil,kemunculan=kemunculan)
 
+# halaman webscraping
+@app.route('/webscrapping', methods=["POST","GET"])
+def webscrap():
+    # jika menerima input
+    if request.method == "POST":
+
+        # mengambil input query
+        string = request.form["query"]
+
+        # pindah ke result
+        return redirect(url_for("resultscrap",query=string))
+
+    # jika tidak menerima input
+    else:
+        # render ahha.html
+        return render_template("webscrapping.html")
+
+@app.route('/webscrapping/<query>',methods=["POST","GET"])
+def resultscrap(query):
+    # jika menerima input baru, mengubah nilai query
+    if request.method == "POST":
+        string = request.form["query"]
+        return redirect(url_for("resultscrap",query=string))
+    
+    else:
+        retval = backend.webscrapping(query)
+        [titles,kemunculan,sort] = retval
+        return render_template("resultwebscrap.html",query=query,judul=titles,hasil=sort,kemunculan=kemunculan)
+
 # halaman dokumen
 @app.route('/dokumen/<namafile>')
 def buka(namafile):

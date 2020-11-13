@@ -4,11 +4,54 @@
     <meta charset="UTF-8">
     <title>{{ judul }}</title>
     <style>
+        * {
+            margin: 0px;
+			padding: 0px;
+			font-family: century gothic;
+            color:white;
+        }
         pre {
             margin: 10px 50px 10px 50px;
             font: arial;
             font-size: 20px;
             text-align: justify;
+            max-width: 100px;
+        }
+        body {
+            background-image: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)), url("/static/sawah.jpg");
+			height: 100vh;
+			background-size: cover;
+			background-position: center;
+            background-attachment: fixed;
+
+            animation-name: animate;
+	        animation-direction: alternate-reverse;
+	        animation-duration: 40s;
+	        animation-fill-mode: forwards;
+	        animation-iteration-count: infinite;
+	        animation-play-state: running;
+	        animation-timing-function: ease-in-out ;
+        }
+
+        @keyframes animate{
+        	0%{
+        		background-image: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)), url("/static/pestisida.jpg");
+        	}
+        	20%{
+        		background-image: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)), url("/static/sapi.jpg");
+        	}
+        	40%{
+        		background-image: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)), url("/static/lele.jpg");
+        	}
+        	60%{
+        		background-image: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)), url("/static/hidroponik.jpg");
+        	}
+        	80%{
+        		background-image: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)), url("/static/sawah.jpg");
+        	}
+        	100%{
+        		background-image: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)), url("/static/jagung.jpg");
+        	}
         }
     </style>
 </head>

@@ -213,13 +213,13 @@
         <map name="mbah">
             <area shape="default" href="..">
         </map>
-        <form class="search" action="../result/{{query}}#" method="POST" enctype="multipart/form-data">
+        <form class="search" action="../webscrapping/{{query}}#" method="POST" enctype="multipart/form-data">
             <input type="text" id="search" name="query" value="{{query}}" size="80" class="round" placeholder="sini biar Mbah cariin">
         </form>
         <div class="navbar">
             <ul>
                 <li><a href="../">Home</a></li>
-                <li><a href="../webscrapping">Web Srapping</a></li>
+                <li><a href="#">Web Srapping</a></li>
                 <li><a href="../perihal">Images</a></li>
                 <li><a href="../perihal">About</a></li>
             </ul>
@@ -229,7 +229,7 @@
     <div class="main">
         <div class="result">
             {% for file in hasil %}
-            <a class="dokumen" href="../dokumen/{{ file.doc }}">{{ file.doc }}</a>
+            <a class="dokumen" href="{{file.link}}">{{ file.doc }}</a>
             <p>Jumlah kata: <b>{{ file.jumlah }}</b></p>
             <p>Tingkat kemiripan: <b>{{ file.persen }}</b></p>
             <p style="color:rgba(194, 255, 179, 0.5);">{{ file.awal }}</p><br><br>
@@ -240,8 +240,8 @@
                 <tr>
                     <th class="nilaiterm sticky-cell">Term</th>
                     <th class="nilaiquery sticky-cell" style="background-color: rgb(194, 255, 179);">Query</th>
-                    {% for file in hasil %}
-                    <th>{{ file.doc }}</th>
+                    {% for file in judul %}
+                    <th>{{ file }}</th>
                     {% endfor %}
                 </tr>
                 {% for data in kemunculan %}

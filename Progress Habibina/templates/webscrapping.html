@@ -89,6 +89,10 @@
             margin-top: 160px;
             margin-left: 460px;
         }
+        .webscrap {
+            text-decoration: none;
+            color: white;
+        }
         #search {
             padding-left: 20px;
             padding-right: 20px;
@@ -101,17 +105,16 @@
     <header>
         <div class="header">
             <ul>
-                <li><a href="#" class="active">Home</a></li>
-                <li><a href="webscrapping">Web Scrapping</a></li>
-                <li><a href="perihal">Images</a></li>
-                <li><a href="perihal">About</a></li>
+                <li><a href="..">Home</a></li>
+                <li><a href="#" class="active">Web Scrapping</a></li>
+                <li><a href="../perihal">Images</a></li>
+                <li><a href="../perihal">About</a></li>
             </ul>
         </div>
         <div class="main">
             <img class="logo" src="{{url_for('static', filename='mbah google putih.png')}}" alt="logo"><br>
             <form class="input" action="#" method="POST" enctype="multipart/form-data">
-                <label style="color: white; margin-left:50px;">Daftar dokumen:</label>
-                <input type="file" id="files" name="dokumen" accept=".txt" multiple="true" style="color: white;" required><br><br>
+                <a href="https://www.detik.com/search/searchall?query=tanaman%20padi&siteid=3&sortby=time&sorttime=0&page=" class="webscrap">Web Scrapping</a><br><br>
                 <input type="text" id="search" name="query" value="{{query}}" size="80" class="round" placeholder="sini biar Mbah cariin">
             </form>
         </div>
