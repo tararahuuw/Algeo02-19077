@@ -65,12 +65,17 @@ Project is: _finished_
 
 ## Inspiration
 https://informatika.stei.itb.ac.id/~rinaldi.munir/AljabarGeometri/2020-2021/Tubes2-Algeo-2020.pdf
+
 https://towardsdatascience.com/create-a-simple-search-engine-using-python-412587619ff5
+
 https://programminghistorian.org/en/lessons/creating-apis-with-python-and-flask
+
 https://youtu.be/HLNdqYFhasc
 
 ## Contact
 feel free to contact us!
 Created by Muhammad Fahmi Alamsyah (https://www.github.com/tararahuuw)
+
 Created by Habibina Arif Muzayyan (https://www.github.com/habibinaarif)
+
 Created by Delisha Azza Naadira (https://www.github.com/delishaandr)
