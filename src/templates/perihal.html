@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Perihal</title>
+    <style>
+        *{
+            margin: 0px;
+            padding: 0px;
+            font-family: century gothic;
+            color: white;
+        }
+        body {
+            background-image: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)), url("/static/sawah.jpg");
+			height: 100vh;
+			background-size: cover;
+			background-position: center;
+            background-attachment: fixed;
+            
+            animation-name: animate;
+	        animation-direction: alternate-reverse;
+	        animation-duration: 40s;
+	        animation-fill-mode: forwards;
+	        animation-iteration-count: infinite;
+	        animation-play-state: running;
+	        animation-timing-function: ease-in-out ;
+        }
+        
+        @keyframes animate{
+            0%{
+                background-image: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)), url("/static/pestisida.jpg");
+        	}
+        	20%{
+                background-image: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)), url("/static/sapi.jpg");
+        	}
+        	40%{
+                background-image: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)), url("/static/lele.jpg");
+        	}
+        	60%{
+                background-image: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)), url("/static/hidroponik.jpg");
+        	}
+        	80%{
+                background-image: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)), url("/static/sawah.jpg");
+        	}
+        	100%{
+        		background-image: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)), url("/static/jagung.jpg");
+        	}
+        }
+        
+        ul {
+            
+            list-style-type: none;
+            float: right;
+            margin-top: 20px;
+            
+        }
+        
+        ul li {
+            display: inline-block;
+        }
+        
+        ul li a{
+            text-decoration: none;
+            color: white;
+            padding: 5px 20px;
+            border: 1px solid transparent;
+            
+        }
+        
+        ul li a:hover{
+            background-color: white;
+            color: black;
+        }
+        
+        ul li.active a{
+            background-color: white;
+            color: black;
+        }
+        .main {
+            position:fixed;
+            margin-left: 100px;
+            top:50px;
+        }
+        </style>
+</head>
+<body>
+    <div class="header">
+        <ul>
+            <li><a href="..">Home</a></li>
+            <li><a href="webscrapping">Web Scrapping</a></li>
+            <li><a href="images">Images</a></li>
+            <li><a href="perihal" class="active">About</a></li>
+        </ul>
+    </div>
+    <div class="main">
+        <h2>Konsep</h2>
+        <p>Mesin pencarian yang kami buat bernama "Mbah Google", cara kerjanya dengan menerapkan Sistem Temu-Balik.</p>
+        <h2>How to Use</h2>
+        <li>Unggah beberapa dokumen</li>
+        <li>Ketik query di tempat yang telah disediakan</li>
+        <li>Mesin akan mengurutkan kemiripan query dengan dokumen</li>
+        <h2>About Us</h2>
+        <p>"Mbah Google" dibuat oleh kelompok 30 Tubes 2 Algeo 2020/2021, kelompok ini bernama AHHA.</p>
+        <b>AHHA Team:</b>
+        <li>Muhammad Fahmi <b>A</b>lamsyah (13519077)</li>
+        <li><b>H</b>abibina Arif Muzayyan (13519125)</li>
+        <li>Delis<b>HA</b> Azza Naadira (13519133)</li>
+    </div>
+</body>
+</html>
