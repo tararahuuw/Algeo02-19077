@@ -33,7 +33,9 @@ Tugas besar ini bertujuan membuat search engine dengan menggunakkan metode cosin
 
 
 ## Screenshots
-![Example screenshot](./img/screenshot.png)
+![masuk](https://user-images.githubusercontent.com/49779495/99183433-5459f700-276e-11eb-8181-573e37962e12.png)
+
+![masuk2](https://user-images.githubusercontent.com/49779495/99183486-bfa3c900-276e-11eb-8039-2562f502bcbc.png)
 
 ## Technologies
 * Python 3
@@ -44,15 +46,32 @@ Tugas besar ini bertujuan membuat search engine dengan menggunakkan metode cosin
 3. Install library nltk
 4. Download folder src
 5. Run API.py
+6. Masukkan document yang ingin dicari
+7. Masukkan query pencarian
 
 ## Code Examples
-Show examples of usage:
-`put-your-code-here`
+-Install library Sastrawi on cmd with command 'pip install sastrawi'
+
+-Install library Flask on cmd with command 'pip install flask'
+
+-Install library NLTK on cmd with command 'pip install nltk'
+
+![cmd](https://user-images.githubusercontent.com/49779495/99183061-c67d0c80-276b-11eb-99f3-a129a1a049b4.PNG)
+
+-Open API.py with text Editor
+
+-Run program in cmd with command 'python API.py'
+
+-copy link in cmd http://127.0.0.1:5000/ and paste in Google
+
+![cmd2](https://user-images.githubusercontent.com/49779495/99183368-c54cdf00-276d-11eb-91a3-8ede745956e3.PNG)
 
 ## Features
-List of features ready and TODOs for future development
+List of features ready:
 * Search Query dari document txt
-* Search Query dari web scraping
+* Search Query dengan web scraping dari https://www.detik.com/search/searchall?query=tanaman%20padi&siteid=3&sortby=time&sorttime=0&page=1
+* About
+* Images
 * Changing background image with timer
 * Table of Query
 * Hyperlink
@@ -74,6 +93,7 @@ https://youtu.be/HLNdqYFhasc
 
 ## Contact
 feel free to contact us!
+
 Created by Muhammad Fahmi Alamsyah (https://www.github.com/tararahuuw)
 
 Created by Habibina Arif Muzayyan (https://www.github.com/habibinaarif)
