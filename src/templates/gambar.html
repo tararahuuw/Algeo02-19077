@@ -3,112 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <title>Gambar</title>
-    <style>
-        *{
-            margin: 0px;
-            padding: 0px;
-            font-family: century gothic;
-        }
-        
-        header {
-            background-image: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)), url("/static/sawah.jpg");
-            height: 100vh;
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            transition: 5s;
-
-            animation-name: animate;
-	        animation-direction: alternate-reverse;
-	        animation-duration: 40s;
-	        animation-fill-mode: forwards;
-	        animation-iteration-count: infinite;
-	        animation-play-state: running;
-	        animation-timing-function: ease-in-out ;   
-        }
-
-        @keyframes animate{
-        	0%{
-        		background-image: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)), url("/static/pestisida.jpg");
-        	}
-        	20%{
-        		background-image: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)), url("/static/sapi.jpg");
-        	}
-        	40%{
-        		background-image: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)), url("/static/lele.jpg");
-        	}
-        	60%{
-        		background-image: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)), url("/static/hidroponik.jpg");
-        	}
-        	80%{
-        		background-image: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)), url("/static/sawah.jpg");
-        	}
-        	100%{
-        		background-image: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)), url("/static/jagung.jpg");
-        	}
-        }
-        
-        ul {
-            
-            list-style-type: none;
-            float: right;
-            margin-top: 20px;
-        }
-        
-        ul li {
-            display: inline-block;
-        }
-        
-        ul li a{
-            text-decoration: none;
-            color: white;
-            padding: 5px 20px;
-            border: 1px solid transparent;
-            
-        }
-        
-        ul li a:hover{
-            background-color: white;
-            color: black;
-        }
-        
-        ul li.active a{
-            background-color: white;
-            color: black;
-        }
-        img {
-            position:fixed;
-            height: 47%;
-            width: 47%;
-        }
-        .gambar1 {
-            top:10px;
-            left:10px;
-        }
-        .gambar2 {
-            bottom:10px;
-            left:10px;
-        }
-        .gambar3 {
-            top:230px;
-            right:50px;
-        }
-    </style>
+    <link rel="stylesheet" href="../static/style.css">
 </head>
 <body>
     <header>
         <div class="header">
             <ul>
-                <li><a href=".." class=>Home</a></li>
+                <li><a href="https://tararahuuw.github.io/#Projects" class=>Project</a></li>
                 <li><a href="../webscrapping">Web Scrapping</a></li>
                 <li><a href="#">Images</a></li>
-                <li><a href="../perihal">About</a></li>
+                <li><a href="https://github.com/tararahuuw/Algeo02-19077">About</a></li>
             </ul>
         </div>
         <div class="main">
-            <img class="gambar1" src="{{url_for('static',filename='Prototype1.png')}}" alt="Prototype1.png">
-            <img class="gambar2" src="{{url_for('static',filename='Prototype2.png')}}" alt="Prototype2.png">
-            <img class="gambar3" src="{{url_for('static',filename='muka.png')}}" alt="muka.png">
+            <img class="gambar1" src="../static/Prototype1.png" alt="Prototype1.png">
+            <img class="gambar2" src="../static/Prototype1.png" alt="Prototype2.png">
+            <img class="gambar3" src="../static/muka.png" alt="muka.png">
         </div>
     </header>
 </body>
